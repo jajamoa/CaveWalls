@@ -242,12 +242,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <text x="854" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 5</text>
     </g>
   </svg>
-  <div class="panelcaps">
-    <div><b>1</b><span class="pcl">mortal</span> A life is a step budget far below what the task needs. Every agent dies with the task unfinished.</div>
-    <div><b>2</b><span class="pcl">the wall</span> One artifact per life, size-capped. The cap is what forces the artifact to compress.</div>
-    <div><b>3</b><span class="pcl">two channels</span> Written: at most K tokens. Painted: at most M recorded demonstrations. Or both.</div>
-    <div><b>4</b><span class="pcl">the ratchet</span> Does generation n+1 start where n stopped? Orphans, who inherit nothing, restart at zero every life.</div>
-  </div>
 </div>
 
 <section class="wrap" id="question" style="margin-top:55px">
@@ -394,14 +388,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <rect x="906" y="154" width="6" height="6" fill="none" stroke="#fff" stroke-width="1.2"/>
 <text x="952" y="164" font-size="9.5" fill="#4f4e49">+ actions</text>
 </svg>
-  <div class="figcap">One life on the machine, and what it leaves. Left: the agent finds two of about twenty rules before its budget ends. Middle: the ledger across generations, with one rule found and then lost at a hand-off. Right: the same two rules as a written wall and as a painted one.</div>
+  <div class="figcap">One life on the machine, and the wall it leaves.</div>
 </div>
 </div>
 <section class="wrap" id="setting-rows" style="margin-top:18px">
   <div class="rows">
-    <div class="row"><div><h3>A machine with hidden rules</h3><div class="csub">novel games, ARC-AGI-3 format</div></div><p>Procedurally generated interactive games: unfamiliar interface, mechanics randomized per instance, about twenty hidden rules between start and goal. Unseen in pretraining. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p></div>
-    <div class="row"><div><h3>Mortal agents</h3><div class="csub">one life finds four or five rules</div></div><p>A fixed step budget, well below what the task needs. One agent per generation, ten to twenty generations per lineage.</p></div>
-    <div class="row"><div><h3>The wall</h3><div class="csub">one artifact, capped</div></div><p>At death the agent leaves one thing for its successor. Written: at most K tokens. Painted: at most M recorded demonstrations, screenshots with actions. Or both. Nothing else is inherited.</p></div>
+    <div class="row"><div><h3>A machine with hidden rules</h3><div class="csub">novel games, ARC-AGI-3 format</div></div><p>About twenty hidden rules between start and goal, generated fresh per instance. Every rule is enumerable, so we can see who learned it and who lost it.</p></div>
+    <div class="row"><div><h3>Mortal agents</h3><div class="csub">one life finds four or five rules</div></div><p>A step budget far short of the task. One agent per generation, ten to twenty generations.</p></div>
+    <div class="row"><div><h3>The wall</h3><div class="csub">one artifact, capped</div></div><p>Written: at most K tokens. Painted: at most M recorded frames with actions. Or both. Nothing else is inherited.</p></div>
   </div>
 </section>
 
