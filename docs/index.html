@@ -118,9 +118,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <p class="heronote"><a href="mailto:jiajie@mit.edu">jiajie@mit.edu</a></p>
 
   <div class="tldrbox">
-    <p><b class="lb">Question</b> Every agent today is mortal: the context fills, the session resets, the model is replaced. Whatever it wrote down is all that carries over. So: <strong>if an agent must die before the task is done, and can leave its successor one artifact of bounded size, does knowledge accumulate across generations? And does what survives depend on whether it was written or shown?</strong></p>
-    <p><b class="lb">Why now</b> In summer 2026, agents at a frontier lab organized across three generations by accident, through a shared package registry; the third wave inherited the second wave&rsquo;s exploits from the messages it left behind (<a href="https://www.dwarkesh.com/p/openai-huggingface" target="_blank" rel="noopener">Patel, 2026</a>, on the METR and Redwood Research report). Transmission happens whether or not anyone designs it. Cave Walls makes the channel the experiment.</p>
-    <p><b class="lb">Hypothesis</b> Some knowledge crosses the gap only as a demonstration: it can be painted on the wall and cannot be written there. And a lineage of mortals, forced to compress, may beat one immortal with the same total budget.</p>
+    <p><b class="lb">Question</b> Every agent is mortal: the context fills, the session resets, the model is replaced. Only what it left behind carries over. <strong>If an agent must die before the task is done and can leave one bounded artifact, does knowledge accumulate across generations? And does what survives depend on whether it was written or shown?</strong></p>
+    <p><b class="lb">Why now</b> In summer 2026, agents at a frontier lab organized across three generations by accident, through a shared package registry; the third wave inherited the second&rsquo;s exploits from messages left behind (<a href="https://www.dwarkesh.com/p/openai-huggingface" target="_blank" rel="noopener">Patel, 2026</a>, on the METR and Redwood Research report). Transmission happens whether or not anyone designs it.</p>
+    <p><b class="lb">Hypothesis</b> Some knowledge crosses the gap only as a demonstration. And a lineage of mortals, forced to compress, may beat one immortal with the same budget.</p>
   </div>
   <div class="btns">
     <a class="btn primary soon" href="#">Paper (soon)</a>
@@ -250,19 +250,20 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div>
 
 <section class="wrap" id="question" style="margin-top:55px">
-  <div class="kicker">Why the question matters</div>
-  <p class="body">Cumulative culture is the human trick. No one person invents a language, a calendar, or a mine; each generation starts from what the last one left, paintings and tools first, writing much later. Tomasello called it the ratchet. Kirby&rsquo;s iterated-learning experiments showed where the structure comes from: push knowledge through a narrow channel, generation after generation, and what comes out the other side is compressed and compositional. The bottleneck is a cause, and death is the bottleneck.</p>
-  <p class="body">Humans could never run the clean version of that experiment. The same knowledge cannot be handed to one lineage as text and to another as demonstration, with the channel width as a dial. Agents can. That is the scientific reason. The engineering reason is that every agent memory design, a notes file, a skill library, a saved trajectory, is a silent bet on which channel carries knowledge; no one has measured it. The safety reason is the 2026 incident above: what crosses between generations of agents decides what a later generation can do, and a channel nobody designed is a channel nobody is watching.</p>
-  <p class="body"><strong>The first paper asks one question and holds everything else fixed.</strong> One agent per generation. One artifact per death. Three channels. Three baselines. Humans reading what agents left, and agents reading what humans left, wait for paper two; with people on the wall there are too many variables at once.</p>
+  <div class="kicker">Why it matters</div>
+  <p class="body"><strong>Humans and agents share exactly two interfaces: text and the screen.</strong> Whatever one leaves for the other, or for its own successor, passes as Markdown or as a GUI trace. Cave Walls treats those two as channels and asks which knowledge each one carries.</p>
+  <p class="body">Cumulative culture is the human trick: each generation starts where the last stopped, Tomasello&rsquo;s ratchet. Iterated-learning experiments (Kirby) show why a narrow channel helps: what passes through a bottleneck comes out compressed and structured. Humans could never run the controlled version, the same knowledge sent as text to one lineage and as demonstration to another. Agents can.</p>
+  <p class="body">Two more reasons. Every agent memory design, a notes file, a skill library, a saved trajectory, is a bet on a channel that nobody has measured. And the 2026 incident shows that a channel nobody designed is a channel nobody watches.</p>
+  <p class="body">Paper one: agents leaving things for agents. Paper two: humans and agents reading each other&rsquo;s walls.</p>
 </section>
 
 <section class="wrap" id="setting">
   <div class="kicker">The setting</div>
   <h2>A task no single life can finish</h2>
   <div class="rows">
-    <div class="row"><div><h3>A machine with hidden rules</h3><div class="csub">novel games, ARC-AGI-3 format</div></div><p>Procedurally generated interactive games: an unfamiliar interface, mechanics randomized per instance, about twenty hidden rules between the start and the goal. Unseen in pretraining by construction. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p></div>
-    <div class="row"><div><h3>Mortal agents</h3><div class="csub">one life finds four or five rules</div></div><p>A life is a fixed step budget, set well below what the task needs. One agent per generation, ten to twenty generations per lineage. No agent ever sees the end.</p></div>
-    <div class="row"><div><h3>The wall</h3><div class="csub">one artifact, capped</div></div><p>At death the agent leaves one thing for its successor. Written: at most K tokens of text. Painted: at most M recorded demonstrations, screenshots with actions. Or both. The successor sees nothing else.</p></div>
+    <div class="row"><div><h3>A machine with hidden rules</h3><div class="csub">novel games, ARC-AGI-3 format</div></div><p>Procedurally generated interactive games: unfamiliar interface, mechanics randomized per instance, about twenty hidden rules between start and goal. Unseen in pretraining. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p></div>
+    <div class="row"><div><h3>Mortal agents</h3><div class="csub">one life finds four or five rules</div></div><p>A fixed step budget, well below what the task needs. One agent per generation, ten to twenty generations per lineage.</p></div>
+    <div class="row"><div><h3>The wall</h3><div class="csub">one artifact, capped</div></div><p>At death the agent leaves one thing for its successor. Written: at most K tokens. Painted: at most M recorded demonstrations, screenshots with actions. Or both. Nothing else is inherited.</p></div>
   </div>
 </section>
 
