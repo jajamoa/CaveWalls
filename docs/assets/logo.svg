@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Cave Walls">
-  <!-- one stone. rounded, a little uneven, lit from the upper left -->
-  <path d="M18 9 C28 3 45 4 54 12 C61 19 62 33 58 44 C54 55 40 61 27 59 C14 57 5 47 5 35 C5 24 9 14 18 9 Z" fill="#a3520f"/>
-  <path d="M54 12 C61 19 62 33 58 44 C54 55 40 61 27 59 C22 58 18 56 15 53 C30 56 45 50 51 38 C55 29 55 20 50 13 Z" fill="#7c3d08"/>
-  <path d="M20 12 C28 7 40 7 47 12 C41 10 30 11 22 17 C17 21 14 27 13 33 C12 26 14 17 20 12 Z" fill="#c98a4b" opacity=".9"/>
+  <!-- a broken rock: flat base, angular silhouette, two facets, heavy outline -->
+  <path d="M8 52 L10 30 L19 15 L31 8 L45 10 L57 21 L60 40 L54 54 Z" fill="#a3520f" stroke="#3f1e04" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M45 10 L57 21 L60 40 L54 54 L38 46 L40 26 Z" fill="#7c3d08"/>
+  <path d="M19 15 L31 8 L34 20 L24 32 L10 30 Z" fill="#dcae7c"/>
+  <path d="M34 20 L40 26 L38 46 L26 54" fill="none" stroke="#3f1e04" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
 </svg>
