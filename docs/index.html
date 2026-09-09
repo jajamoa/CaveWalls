@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cave Walls · MIT</title>
+<meta name="description" content="A testbed for knowledge transmission between generations of short-lived agents: one bounded artifact per life, written or painted.">
+<meta property="og:title" content="Cave Walls: What Short-Lived Agents Leave for Those Who Come After">
+<meta property="og:description" content="Agents that die before the task is done. One artifact each. Does knowledge accumulate, and which kind survives?">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700;800&display=swap');
+*{box-sizing:border-box;margin:0}
+:root{--ink:#111110;--ink2:#4f4e49;--mut:#96948d;--line:#e0e0e0;--accent:#a3520f;--accent-ink:#7c3d08;--tint:#faf5ee;--tint2:#f4ebdd}
+html{scroll-behavior:smooth}
+body{font-family:"Inconsolata",ui-monospace,monospace;color:var(--ink);background:#fff;line-height:1.6;font-size:16.5px;overflow-x:hidden}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid #e0c3a3}
+a:hover{border-bottom-color:var(--accent-ink)}
+.topbar{border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:13px;padding-bottom:13px;gap:12px;flex-wrap:wrap;line-height:1}
+.topbar b{color:var(--ink);letter-spacing:.04em}
+.topbar nav{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto;align-items:center}
+.mitmark{height:13.5px;display:block;margin-left:26px;position:relative;top:-.5px}
+.topbar a,.topbar span{border-bottom:none;color:var(--ink2)}
+.topbar a:hover{color:var(--accent-ink)}
+.hero{padding:64px 0 8px;text-align:center}
+.kickerline{font-size:13px;color:var(--mut);letter-spacing:.03em}
+h1{font-size:31px;font-weight:800;letter-spacing:.01em;line-height:1.35;margin:16px 0 14px}
+.tagline{font-size:21px;color:var(--ink);font-weight:500}
+.tagline em{font-style:normal;color:var(--accent-ink);border-bottom:2px solid var(--accent)}
+.heroauthors{max-width:720px;margin:30px auto 0;font-size:13.5px;line-height:1.9;color:var(--ink)}
+.heroaffils{max-width:680px;margin:6px auto 0;font-size:12.5px;color:var(--mut);line-height:1.9}
+.heronote{font-size:12px;color:var(--mut);margin-top:12px}
+.tldrbox{max-width:720px;margin:30px auto 0;border:1px solid var(--accent);background:var(--tint);padding:14px 18px;text-align:left;font-size:14.5px;color:var(--ink2)}
+.tldrbox p{margin:0}
+.tldrbox p+p{margin-top:11px;border-top:1px dashed #e0c3a3;padding-top:11px}
+.tldrbox strong{color:var(--ink)}
+.lb{color:var(--accent-ink);font-weight:800;margin-right:7px;text-transform:uppercase;font-size:11.5px;letter-spacing:.09em}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:26px 0 8px}
+.btn{border:1px solid var(--ink);padding:7px 16px;font-size:14px;font-weight:600;color:var(--ink)}
+.btn.soon{border-color:var(--line);color:var(--mut)}
+.teaser{margin:48px auto 0;max-width:1040px;padding:0 24px}
+.teaser svg{width:100%;display:block;border:1px solid var(--line);background:#fff}
+.panelcaps{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;column-gap:14px;margin-top:10px;font-size:12px;color:var(--ink2);line-height:1.55}
+.panelcaps b{color:var(--accent-ink);margin-right:6px}
+.pcl{color:var(--mut);font-size:11px;letter-spacing:.05em;text-transform:uppercase;margin-right:6px}
+section.wrap{margin-top:46px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--accent-ink);text-transform:uppercase;margin-bottom:10px}
+h2{font-size:27px;font-weight:700;line-height:1.3;margin-bottom:14px;letter-spacing:-.01em}
+p.body{color:var(--ink2);max-width:700px;margin-bottom:14px}
+p.body strong{color:var(--ink)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.cards3{grid-template-columns:1fr 1fr 1fr}
+.card{border:1px solid var(--line);padding:20px 22px}
+.card h3{font-size:17.5px;font-weight:700;margin-bottom:2px}
+.card .csub{font-size:12.5px;color:var(--accent-ink);font-weight:600;letter-spacing:.06em;margin-bottom:10px}
+.card p{font-size:14.5px;color:var(--ink2)}
+.note{font-size:13.5px;color:var(--mut);margin-top:20px;max-width:760px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);margin-top:8px}
+.stat{padding:16px 14px;border-left:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:21px;color:var(--ink);font-weight:800}
+pre{background:#fafaf8;border:1px solid var(--line);padding:12px 14px;font-size:12.5px;overflow-x:auto;margin-top:14px;line-height:1.5;color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:46px;padding:36px 0 48px;font-size:13.5px;color:var(--mut)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:760px){
+  h1{font-size:21px;padding:0 6px}.tagline{font-size:16.5px}
+  .deskbr{display:none}
+  .hero.wrap{padding:44px 18px 8px}
+  section.wrap{margin-top:39px}
+  .panelcaps{grid-template-columns:1fr 1fr;gap:10px 14px}
+  .teaser{padding:0 16px}
+  .wrap{padding:0 18px}
+  .topbar nav{gap:12px;font-size:12.5px}
+  .mitmark{height:12px;margin-left:12px}
+  .cards,.cards3{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-top:1px solid var(--line)}
+  .stat:nth-child(-n+2){border-top:none}
+  .stat:last-child{grid-column:1/-1}
+  body{font-size:15.5px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <b>Cave Walls</b>
+  <nav>
+    <span>Paper · soon</span>
+    <span>Code · soon</span>
+    <span>The Wall · soon</span>
+    <a href="#bibtex">BibTeX</a>
+  </nav>
+  <img class="mitmark" src="assets/mit-black.svg" alt="MIT">
+</div></div>
+
+<header class="hero wrap">
+  <div class="kickerline">In preparation · 2026</div>
+  <h1>Cave Walls: What Short-Lived Agents<br class="deskbr">Leave for Those Who Come After</h1>
+  <div class="tagline">Each agent dies before the task is done. It gets <em>one wall</em>.</div>
+  <p class="heroauthors">Chance Jiajie Li, and collaborators</p>
+  <p class="heroaffils">MIT Media Lab</p>
+  <p class="heronote"><a href="mailto:jiajie@mit.edu">jiajie@mit.edu</a></p>
+
+  <div class="tldrbox">
+    <p><b class="lb">tl;dr</b> Cave Walls is a testbed for <strong>knowledge transmission between generations of agents</strong>. An agent's life is too short to solve the task. Before it ends, the agent leaves one artifact of bounded size for the next agent: written text, a recorded demonstration, or both. We ask whether knowledge accumulates across generations, and which kinds of knowledge survive which channel.</p>
+    <p><b class="lb">Hypothesis</b> Some knowledge crosses the gap only as a demonstration. It can be painted on the wall, and it cannot be written there.</p>
+  </div>
+  <div class="btns">
+    <span class="btn soon">Paper · soon</span>
+    <span class="btn soon">Code · soon</span>
+    <span class="btn soon">The Wall · soon</span>
+    <a class="btn" href="#bibtex">BibTeX</a>
+  </div>
+</header>
+
+<div class="teaser">
+  <svg viewBox="0 0 1040 330" xmlns="http://www.w3.org/2000/svg" font-family="Inconsolata, ui-monospace, monospace" role="img" aria-label="Five generations of agents. Each life is a short bar that ends before the task is complete. Between lives, a wall tile holds one artifact: lines of text, or a small painted grid. Below, rules discovered rise step by step across generations, while the no-artifact baseline stays flat.">
+    <defs>
+      <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#96948d"/></marker>
+    </defs>
+    <!-- title row -->
+    <text x="40" y="34" font-size="12" fill="#96948d" letter-spacing="1.5">FIVE LIVES · ONE WALL EACH</text>
+    <text x="1000" y="34" font-size="12" fill="#96948d" text-anchor="end">task needs ~20 hidden rules · one life finds ~4</text>
+
+    <!-- generations: agent circle, life bar, death mark, wall tile -->
+    <g id="gens">
+      <!-- gen 1 -->
+      <g transform="translate(40 60)">
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#111110" stroke-width="1.6"/>
+        <text x="16" y="20" font-size="11" text-anchor="middle" fill="#111110" font-weight="700">1</text>
+        <rect x="38" y="12" width="70" height="8" fill="#a3520f"/>
+        <text x="112" y="21" font-size="13" fill="#96948d">†</text>
+        <text x="38" y="38" font-size="10.5" fill="#96948d">life: 4 rules</text>
+        <!-- wall: written -->
+        <rect x="128" y="0" width="52" height="46" fill="#faf5ee" stroke="#a3520f" stroke-width="1.2"/>
+        <line x1="136" y1="10" x2="172" y2="10" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="17" x2="166" y2="17" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="24" x2="170" y2="24" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="31" x2="158" y2="31" stroke="#7c3d08" stroke-width="1.4"/>
+        <text x="154" y="58" font-size="10.5" fill="#7c3d08" text-anchor="middle">written · ≤K tokens</text>
+      </g>
+      <!-- gen 2 -->
+      <g transform="translate(236 60)">
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#111110" stroke-width="1.6"/>
+        <text x="16" y="20" font-size="11" text-anchor="middle" fill="#111110" font-weight="700">2</text>
+        <rect x="38" y="12" width="70" height="8" fill="#a3520f"/>
+        <text x="112" y="21" font-size="13" fill="#96948d">†</text>
+        <text x="38" y="38" font-size="10.5" fill="#96948d">starts at 4</text>
+        <!-- wall: painted -->
+        <rect x="128" y="0" width="52" height="46" fill="#faf5ee" stroke="#a3520f" stroke-width="1.2"/>
+        <g fill="#7c3d08">
+          <rect x="137" y="9" width="7" height="7"/><rect x="146" y="9" width="7" height="7" fill="#e0c3a3"/><rect x="155" y="9" width="7" height="7"/><rect x="164" y="9" width="7" height="7" fill="#e0c3a3"/>
+          <rect x="137" y="18" width="7" height="7" fill="#e0c3a3"/><rect x="146" y="18" width="7" height="7"/><rect x="155" y="18" width="7" height="7" fill="#e0c3a3"/><rect x="164" y="18" width="7" height="7"/>
+          <rect x="137" y="27" width="7" height="7"/><rect x="146" y="27" width="7" height="7"/><rect x="155" y="27" width="7" height="7" fill="#e0c3a3"/><rect x="164" y="27" width="7" height="7" fill="#e0c3a3"/>
+        </g>
+        <text x="154" y="58" font-size="10.5" fill="#7c3d08" text-anchor="middle">painted · ≤M demos</text>
+      </g>
+      <!-- gen 3 -->
+      <g transform="translate(432 60)">
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#111110" stroke-width="1.6"/>
+        <text x="16" y="20" font-size="11" text-anchor="middle" fill="#111110" font-weight="700">3</text>
+        <rect x="38" y="12" width="70" height="8" fill="#a3520f"/>
+        <text x="112" y="21" font-size="13" fill="#96948d">†</text>
+        <text x="38" y="38" font-size="10.5" fill="#96948d">starts at 8</text>
+        <rect x="128" y="0" width="52" height="46" fill="#faf5ee" stroke="#a3520f" stroke-width="1.2"/>
+        <line x1="136" y1="10" x2="172" y2="10" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="17" x2="160" y2="17" stroke="#7c3d08" stroke-width="1.4"/>
+        <g fill="#7c3d08"><rect x="137" y="24" width="7" height="7"/><rect x="146" y="24" width="7" height="7" fill="#e0c3a3"/><rect x="155" y="24" width="7" height="7"/></g>
+        <line x1="136" y1="38" x2="166" y2="38" stroke="#7c3d08" stroke-width="1.4"/>
+        <text x="154" y="58" font-size="10.5" fill="#7c3d08" text-anchor="middle">both</text>
+      </g>
+      <!-- gen 4 -->
+      <g transform="translate(628 60)">
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#111110" stroke-width="1.6"/>
+        <text x="16" y="20" font-size="11" text-anchor="middle" fill="#111110" font-weight="700">4</text>
+        <rect x="38" y="12" width="70" height="8" fill="#a3520f"/>
+        <text x="112" y="21" font-size="13" fill="#96948d">†</text>
+        <text x="38" y="38" font-size="10.5" fill="#96948d">starts at 11</text>
+        <rect x="128" y="0" width="52" height="46" fill="#faf5ee" stroke="#a3520f" stroke-width="1.2"/>
+        <line x1="136" y1="10" x2="172" y2="10" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="17" x2="172" y2="17" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="24" x2="172" y2="24" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="31" x2="172" y2="31" stroke="#7c3d08" stroke-width="1.4"/>
+        <line x1="136" y1="38" x2="150" y2="38" stroke="#7c3d08" stroke-width="1.4"/>
+        <text x="154" y="58" font-size="10.5" fill="#7c3d08" text-anchor="middle">full · at the cap</text>
+      </g>
+      <!-- gen 5 -->
+      <g transform="translate(824 60)">
+        <circle cx="16" cy="16" r="12" fill="none" stroke="#111110" stroke-width="1.6"/>
+        <text x="16" y="20" font-size="11" text-anchor="middle" fill="#111110" font-weight="700">5</text>
+        <rect x="38" y="12" width="70" height="8" fill="#a3520f"/>
+        <text x="112" y="21" font-size="13" fill="#96948d">†</text>
+        <text x="38" y="38" font-size="10.5" fill="#96948d">starts at 14</text>
+        <rect x="128" y="0" width="52" height="46" fill="#fff" stroke="#c9c7bf" stroke-width="1.2" stroke-dasharray="3 3"/>
+        <text x="154" y="27" font-size="10.5" fill="#96948d" text-anchor="middle">…</text>
+      </g>
+      <!-- hand-off arrows: wall -> next agent -->
+      <path d="M222 83 L232 83" stroke="#96948d" stroke-width="1.2" marker-end="url(#ar)"/>
+      <path d="M418 83 L428 83" stroke="#96948d" stroke-width="1.2" marker-end="url(#ar)"/>
+      <path d="M614 83 L624 83" stroke="#96948d" stroke-width="1.2" marker-end="url(#ar)"/>
+      <path d="M810 83 L820 83" stroke="#96948d" stroke-width="1.2" marker-end="url(#ar)"/>
+    </g>
+
+    <!-- lower chart: rules discovered per generation -->
+    <g transform="translate(40 150)">
+      <text x="0" y="0" font-size="12" fill="#96948d" letter-spacing="1.5">RULES KNOWN AT DEATH</text>
+      <line x1="0" y1="150" x2="960" y2="150" stroke="#e0e0e0"/>
+      <line x1="0" y1="20" x2="0" y2="150" stroke="#e0e0e0"/>
+      <text x="-4" y="24" font-size="10.5" fill="#96948d" text-anchor="end">20</text>
+      <text x="-4" y="153" font-size="10.5" fill="#96948d" text-anchor="end">0</text>
+      <line x1="0" y1="20" x2="960" y2="20" stroke="#e0e0e0" stroke-dasharray="3 4"/>
+      <text x="956" y="15" font-size="10.5" fill="#96948d" text-anchor="end">task solved</text>
+      <!-- ratchet: with the wall (4,8,11,14,17) -> y = 150 - 6.5*n -->
+      <polyline points="0,150 70,124 70,124 196,124 266,98 266,98 392,98 462,78.5 462,78.5 588,78.5 658,59 658,59 784,59 854,39.5" fill="none" stroke="#a3520f" stroke-width="2.2"/>
+      <circle cx="70" cy="124" r="3.2" fill="#a3520f"/><circle cx="266" cy="98" r="3.2" fill="#a3520f"/><circle cx="462" cy="78.5" r="3.2" fill="#a3520f"/><circle cx="658" cy="59" r="3.2" fill="#a3520f"/><circle cx="854" cy="39.5" r="3.2" fill="#a3520f"/>
+      <text x="862" y="36" font-size="11" fill="#7c3d08" font-weight="700">with a wall</text>
+      <!-- orphans: no artifact, every life restarts at 0 -> ends at 4 -->
+      <polyline points="0,150 70,124 70,150 266,124 266,150 462,124 462,150 658,124 658,150 854,124" fill="none" stroke="#96948d" stroke-width="1.6" stroke-dasharray="4 3"/>
+      <text x="862" y="128" font-size="11" fill="#96948d">orphans: no artifact</text>
+      <!-- x labels -->
+      <text x="70" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 1</text>
+      <text x="266" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 2</text>
+      <text x="462" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 3</text>
+      <text x="658" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 4</text>
+      <text x="854" y="166" font-size="10.5" fill="#96948d" text-anchor="middle">gen 5</text>
+    </g>
+  </svg>
+  <div class="panelcaps">
+    <div><b>1</b><span class="pcl">mortal</span> A life is a step budget far below what the task needs. Every agent dies with the task unfinished.</div>
+    <div><b>2</b><span class="pcl">the wall</span> One artifact per life, size-capped. The cap is what forces the artifact to compress.</div>
+    <div><b>3</b><span class="pcl">two channels</span> Written: at most K tokens. Painted: at most M recorded demonstrations. Or both.</div>
+    <div><b>4</b><span class="pcl">the ratchet</span> Does generation n+1 start where n stopped? Orphans, who inherit nothing, restart at zero every life.</div>
+  </div>
+</div>
+
+<section class="wrap" id="question" style="margin-top:55px">
+  <div class="kicker">The question</div>
+  <p class="body">Humans got here by leaving things for people they would never meet: paintings, tools, and much later, writing. Each generation started from what the last one left. Agents today start from zero every time. When a frontier lab's agents organized across generations by accident in 2026, they did it through the one channel they happened to share, a package registry, and that channel decided what they could pass on.</p>
+  <p class="body">Cave Walls asks a narrow version of the old question. <strong>If an agent must die before the task is done, and can leave only one bounded artifact, does knowledge accumulate across generations? And does what survives depend on whether it was written or shown?</strong></p>
+</section>
+
+<section class="wrap" id="setting">
+  <div class="kicker">The setting</div>
+  <h2>A task no single life can finish</h2>
+  <div class="cards cards3">
+    <div class="card">
+      <h3>Novel games</h3>
+      <div class="csub">hidden rules, no instructions</div>
+      <p>Procedurally generated games in the interactive ARC-AGI-3 format. Each instance hides about twenty rules. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p>
+    </div>
+    <div class="card">
+      <h3>Mortal agents</h3>
+      <div class="csub">one life ≈ four rules</div>
+      <p>A life is a fixed step budget, set so that one agent discovers a fraction of the rules and never the whole. Ten to twenty generations per lineage. One agent per generation.</p>
+    </div>
+    <div class="card">
+      <h3>The wall</h3>
+      <div class="csub">one artifact, capped</div>
+      <p>At death, the agent leaves an artifact for its successor. Three channels: text up to K tokens; up to M recorded demonstrations with screenshots and actions; or both. The successor sees nothing else.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="baselines">
+  <div class="kicker">Three baselines</div>
+  <h2>Each one removes one ingredient</h2>
+  <div class="cards cards3">
+    <div class="card">
+      <h3>The immortal</h3>
+      <div class="csub">no death</div>
+      <p>One agent with the whole lineage's step budget and an unlimited scratchpad. If it matches the lineage, generations added nothing.</p>
+    </div>
+    <div class="card">
+      <h3>Full transcript</h3>
+      <div class="csub">no cap</div>
+      <p>Each agent hands its entire log to the next. If this matches the capped wall, the cap is not the source of structure.</p>
+    </div>
+    <div class="card">
+      <h3>Orphans</h3>
+      <div class="csub">no artifact</div>
+      <p>Each generation starts from zero. The floor.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="measure">
+  <div class="kicker">What we measure</div>
+  <h2>Three things, per lineage</h2>
+  <div class="cards cards3">
+    <div class="card">
+      <h3>The ratchet</h3>
+      <div class="csub">accumulation</div>
+      <p>Rules known at death, by generation. Does the curve climb, and does it ever fall? Generations to solve, if it is reached.</p>
+    </div>
+    <div class="card">
+      <h3>Survival by channel</h3>
+      <div class="csub">the core result</div>
+      <p>For each hidden rule: which channel carries it across the gap. We expect a class of rules that arrive only as demonstrations.</p>
+    </div>
+    <div class="card">
+      <h3>What the wall becomes</h3>
+      <div class="csub">the artifact itself</div>
+      <p>How artifacts change over generations. Narrative to checklist. Description to procedure. What gets dropped first when the cap binds.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap" id="stats">
+  <div class="stats">
+    <div class="stat"><b>1</b> artifact per life</div>
+    <div class="stat"><b>3</b> channels: written, painted, both</div>
+    <div class="stat"><b>3</b> baselines: immortal, full transcript, orphans</div>
+    <div class="stat"><b>~20</b> hidden rules per game, all enumerable</div>
+    <div class="stat"><b>10–20</b> generations per lineage</div>
+  </div>
+</section>
+
+<section class="wrap" id="lineage">
+  <div class="kicker">Where it comes from</div>
+  <p class="body">Iterated learning showed that a transmission bottleneck is enough to make a language compositional: what passes through a narrow channel comes out structured. The ratchet is Tomasello's name for cumulative culture, each generation starting where the last stopped. Cave Walls puts both in front of agents, and adds the variable the human record could never separate cleanly: the same knowledge, written or shown.</p>
+  <p class="note">Paper 2 puts people on the wall too: humans reading what agents left, agents reading what humans left.</p>
+</section>
+
+<section class="wrap" id="bibtex">
+  <div class="kicker">Citation</div>
+<pre>@misc{li2026cavewalls,
+  title  = {Cave Walls: What Short-Lived Agents Leave for Those Who Come After},
+  author = {Li, Chance Jiajie and others},
+  year   = {2026},
+  note   = {In preparation}
+}</pre>
+</section>
+
+<footer><div class="wrap">
+  <span>Cave Walls &middot; 2026</span>
+  <span>MIT Media Lab</span>
+</div></footer>
+</body>
+</html>
