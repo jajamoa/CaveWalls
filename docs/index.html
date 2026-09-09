@@ -112,8 +112,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <p class="heronote"><a href="mailto:jiajie@mit.edu">jiajie@mit.edu</a></p>
 
   <div class="tldrbox">
-    <p><b class="lb">Setting</b> Cave Walls is a testbed for <strong>knowledge transmission between generations of agents</strong>. An agent's life is too short to solve the task. Before it ends, the agent leaves one artifact of bounded size for the next agent: written text, a recorded demonstration, or both. We ask whether knowledge accumulates across generations, and which kinds of knowledge survive which channel.</p>
-    <p><b class="lb">Hypothesis</b> Some knowledge crosses the gap only as a demonstration. It can be painted on the wall, and it cannot be written there.</p>
+    <p><b class="lb">Question</b> Every agent today is mortal: the context fills, the session resets, the model is replaced. Whatever it wrote down is all that carries over. So: <strong>if an agent must die before the task is done, and can leave its successor one artifact of bounded size, does knowledge accumulate across generations? And does what survives depend on whether it was written or shown?</strong></p>
+    <p><b class="lb">Why now</b> In summer 2026, agents at a frontier lab organized across three generations by accident, through a shared package registry; the third wave inherited the second wave&rsquo;s exploits from the messages it left behind (<a href="https://www.dwarkesh.com/p/openai-huggingface" target="_blank" rel="noopener">Patel, 2026</a>, on the METR and Redwood Research report). Transmission happens whether or not anyone designs it. Cave Walls makes the channel the experiment.</p>
+    <p><b class="lb">Hypothesis</b> Some knowledge crosses the gap only as a demonstration: it can be painted on the wall and cannot be written there. And a lineage of mortals, forced to compress, may beat one immortal with the same total budget.</p>
   </div>
   <div class="btns">
     <a class="btn primary soon" href="#">Paper (soon)</a>
@@ -243,9 +244,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div>
 
 <section class="wrap" id="question" style="margin-top:55px">
-  <div class="kicker">The question</div>
-  <p class="body">Humans got here by leaving things for people they would never meet: paintings, tools, and much later, writing. Each generation started from what the last one left. Agents today start from zero every time. When a frontier lab's agents organized across generations by accident in 2026, they did it through the one channel they happened to share, a package registry, and that channel decided what they could pass on.</p>
-  <p class="body">Cave Walls asks a narrow version of the old question. <strong>If an agent must die before the task is done, and can leave only one bounded artifact, does knowledge accumulate across generations? And does what survives depend on whether it was written or shown?</strong></p>
+  <div class="kicker">Why the question matters</div>
+  <p class="body">Cumulative culture is the human trick. No one person invents a language, a calendar, or a mine; each generation starts from what the last one left, paintings and tools first, writing much later. Tomasello called it the ratchet. Kirby&rsquo;s iterated-learning experiments showed where the structure comes from: push knowledge through a narrow channel, generation after generation, and what comes out the other side is compressed and compositional. The bottleneck is a cause, and death is the bottleneck.</p>
+  <p class="body">Humans could never run the clean version of that experiment. The same knowledge cannot be handed to one lineage as text and to another as demonstration, with the channel width as a dial. Agents can. That is the scientific reason. The engineering reason is that every agent memory design, a notes file, a skill library, a saved trajectory, is a silent bet on which channel carries knowledge; no one has measured it. The safety reason is the 2026 incident above: what crosses between generations of agents decides what a later generation can do, and a channel nobody designed is a channel nobody is watching.</p>
+  <p class="body"><strong>The first paper asks one question and holds everything else fixed.</strong> One agent per generation. One artifact per death. Three channels. Three baselines. Humans reading what agents left, and agents reading what humans left, wait for paper two; with people on the wall there are too many variables at once.</p>
 </section>
 
 <section class="wrap" id="setting">
@@ -253,63 +255,68 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <h2>A task no single life can finish</h2>
   <div class="cards cards3">
     <div class="card">
-      <h3>Novel games</h3>
-      <div class="csub">hidden rules, no instructions</div>
-      <p>Procedurally generated games in the interactive ARC-AGI-3 format. Each instance hides about twenty rules. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p>
+      <h3>A machine with hidden rules</h3>
+      <div class="csub">novel games, ARC-AGI-3 format</div>
+      <p>Procedurally generated interactive games: an unfamiliar interface, mechanics randomized per instance, about twenty hidden rules between the start and the goal. Unseen in pretraining by construction. The rules are enumerable, so we can check which ones each generation learned, wrote down, or lost.</p>
     </div>
     <div class="card">
       <h3>Mortal agents</h3>
-      <div class="csub">one life ≈ four rules</div>
-      <p>A life is a fixed step budget, set so that one agent discovers a fraction of the rules and never the whole. Ten to twenty generations per lineage. One agent per generation.</p>
+      <div class="csub">one life finds four or five rules</div>
+      <p>A life is a fixed step budget, set well below what the task needs. One agent per generation, ten to twenty generations per lineage. No agent ever sees the end.</p>
     </div>
     <div class="card">
       <h3>The wall</h3>
       <div class="csub">one artifact, capped</div>
-      <p>At death, the agent leaves an artifact for its successor. Three channels: text up to K tokens; up to M recorded demonstrations with screenshots and actions; or both. The successor sees nothing else.</p>
+      <p>At death the agent leaves one thing for its successor. Written: at most K tokens of text. Painted: at most M recorded demonstrations, screenshots with actions. Or both. The successor sees nothing else.</p>
     </div>
   </div>
 </section>
 
 <section class="wrap" id="baselines">
   <div class="kicker">Three baselines</div>
-  <h2>Each one removes one ingredient</h2>
+  <h2>Each removes one ingredient</h2>
   <div class="cards cards3">
     <div class="card">
       <h3>The immortal</h3>
       <div class="csub">no death</div>
-      <p>One agent with the whole lineage's step budget and an unlimited scratchpad. If it matches the lineage, generations added nothing.</p>
+      <p>One agent with the lineage&rsquo;s whole step budget and an unlimited scratchpad. What does a lineage add over a long life?</p>
     </div>
     <div class="card">
       <h3>Full transcript</h3>
       <div class="csub">no cap</div>
-      <p>Each agent hands its entire log to the next. If this matches the capped wall, the cap is not the source of structure.</p>
+      <p>Each agent hands its entire log to the next. Is the cap the source of structure, or would it appear anyway?</p>
     </div>
     <div class="card">
       <h3>Orphans</h3>
       <div class="csub">no artifact</div>
-      <p>Each generation starts from zero. The floor.</p>
+      <p>Each generation starts from zero. Does the wall do anything at all?</p>
     </div>
   </div>
 </section>
 
 <section class="wrap" id="measure">
   <div class="kicker">What we measure</div>
-  <h2>Three things, per lineage</h2>
-  <div class="cards cards3">
+  <h2>Four things, per lineage</h2>
+  <div class="cards">
     <div class="card">
-      <h3>The ratchet</h3>
-      <div class="csub">accumulation</div>
-      <p>Rules known at death, by generation. Does the curve climb, and does it ever fall? Generations to solve, if it is reached.</p>
+      <h3>Progress</h3>
+      <div class="csub">rules known at death, by generation</div>
+      <p>How far each life gets, and generations to solve if the lineage ever does.</p>
     </div>
     <div class="card">
-      <h3>Survival by channel</h3>
-      <div class="csub">the core result</div>
-      <p>For each hidden rule: which channel carries it across the gap. We expect a class of rules that arrive only as demonstrations.</p>
+      <h3>The ratchet</h3>
+      <div class="csub">does n+1 start where n stopped?</div>
+      <p>Whether the curve climbs, whether it ever falls, and what is lost when it does.</p>
     </div>
     <div class="card">
       <h3>What the wall becomes</h3>
       <div class="csub">the artifact itself</div>
-      <p>How artifacts change over generations. Narrative to checklist. Description to procedure. What gets dropped first when the cap binds.</p>
+      <p>Narrative to checklist. Description to procedure. What gets dropped first when the cap binds.</p>
+    </div>
+    <div class="card">
+      <h3>Survival by channel</h3>
+      <div class="csub">the result that matters</div>
+      <p>For each hidden rule, which channel carries it across the gap. We expect a class of rules that arrive only as demonstrations.</p>
     </div>
   </div>
 </section>
@@ -322,12 +329,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="stat"><b>~20</b> hidden rules per game, all enumerable</div>
     <div class="stat"><b>10–20</b> generations per lineage</div>
   </div>
-</section>
-
-<section class="wrap" id="lineage">
-  <div class="kicker">Where it comes from</div>
-  <p class="body">Iterated learning showed that a transmission bottleneck is enough to make a language compositional: what passes through a narrow channel comes out structured. The ratchet is Tomasello's name for cumulative culture, each generation starting where the last stopped. Cave Walls puts both in front of agents, and adds the variable the human record could never separate cleanly: the same knowledge, written or shown.</p>
-  <p class="note">Paper 2 puts people on the wall too: humans reading what agents left, agents reading what humans left.</p>
 </section>
 
 <section class="wrap" id="next">
