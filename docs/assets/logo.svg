@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Cave Walls">
+  <!-- a stone, and a painted grid on it -->
+  <path d="M12 8 C22 3, 44 3, 54 10 C61 16, 62 34, 57 46 C52 58, 30 62, 16 56 C5 51, 2 34, 6 20 C7 14, 9 10, 12 8 Z" fill="#a3520f"/>
+  <g fill="#faf5ee">
+    <rect x="18" y="18" width="8" height="8" rx="1"/><rect x="28" y="18" width="8" height="8" rx="1"/><rect x="38" y="18" width="8" height="8" rx="1" fill="#f1c9a5" opacity=".55"/>
+    <rect x="18" y="28" width="8" height="8" rx="1" fill="#f1c9a5" opacity=".55"/><rect x="28" y="28" width="8" height="8" rx="1"/><rect x="38" y="28" width="8" height="8" rx="1"/>
+    <rect x="18" y="38" width="8" height="8" rx="1"/><rect x="28" y="38" width="8" height="8" rx="1" fill="#f1c9a5" opacity=".55"/><rect x="38" y="38" width="8" height="8" rx="1"/>
+  </g>
+</svg>

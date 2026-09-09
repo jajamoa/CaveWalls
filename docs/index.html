@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cave Walls · MIT</title>
 <meta name="description" content="A testbed for knowledge transmission between generations of short-lived agents: one bounded artifact per life, written or painted.">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <meta property="og:title" content="Cave Walls: What Short-Lived Agents Leave for Those Who Come After">
 <meta property="og:description" content="Agents that die before the task is done. One artifact each. Does knowledge accumulate, and which kind survives?">
 <style>
@@ -18,7 +19,9 @@ a{color:var(--accent-ink);text-decoration:none;border-bottom:1px solid #e0c3a3}
 a:hover{border-bottom-color:var(--accent-ink)}
 .topbar{border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
 .topbar .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:13px;padding-bottom:13px;gap:12px;flex-wrap:wrap;line-height:1}
-.topbar b{color:var(--ink);letter-spacing:.04em}
+.topbar b{color:var(--ink);letter-spacing:.04em;display:flex;align-items:center;gap:8px}
+.topbar b img{height:16px;width:16px;display:block}
+.herologo{width:44px;height:44px;margin:0 auto 6px;display:block}
 .topbar nav{display:flex;gap:16px;flex-wrap:wrap;margin-left:auto;align-items:center}
 .mitmark{height:13.5px;display:block;margin-left:26px;position:relative;top:-.5px}
 .topbar a,.topbar span{border-bottom:none;color:var(--ink2)}
@@ -102,7 +105,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <body>
 
 <div class="topbar"><div class="wrap">
-  <b>Cave Walls</b>
+  <b><img src="assets/logo.svg" alt="">Cave Walls</b>
   <nav>
     <a href="#setting">Setting</a>
     <a href="#baselines">Design</a>
@@ -112,6 +115,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div></div>
 
 <header class="hero wrap">
+  <img class="herologo" src="assets/logo.svg" alt="">
   <div class="kickerline">Preprint &middot; work in progress &middot; 2026</div>
   <h1>Cave Walls: <span class="h1a">What Short-Lived Agents Leave for Those Who Come After</span></h1>
   <p class="heroauthors">Chance Jiajie Li<sup>1</sup>, and collaborators</p>
